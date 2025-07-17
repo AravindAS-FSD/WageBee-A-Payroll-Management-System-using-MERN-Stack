@@ -1,0 +1,110 @@
+.employee-dashboard {
+  background-color: #111;
+  color: #facc15;
+  padding: 40px;
+  min-height: 100vh;
+  border: 2px solid #facc15;
+  border-radius: 16px;
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 0 18px rgba(250, 204, 21, 0.2);
+}
+
+.employee-heading {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+  color: #facc15;
+  letter-spacing: 1px;
+  text-align: center;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #ffe066;
+  border-bottom: 1px solid #facc15;
+  padding-bottom: 4px;
+}
+
+.profile-box {
+  background: #1e1e1e;
+  border: 2px solid #facc15;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 10px rgba(250, 204, 21, 0.08);
+}
+
+.stat-box-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.small-stat-card {
+  flex: 0 0 auto;
+  min-width: 180px;
+  background: #222;
+  border: 2px solid #facc15;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 6px rgba(250, 204, 21, 0.2);
+  text-align: center;
+}
+
+.stat-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #ffe066;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #facc15;
+}
+
+.section-box {
+  background: #181818;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(250, 204, 21, 0.10);
+  border: 2px solid #facc15;
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #facc15 #181818;
+}
+
+.section-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.section-box::-webkit-scrollbar-thumb {
+  background-color: #facc15;
+  border-radius: 10px;
+}
+
+.section-box::-webkit-scrollbar-track {
+  background-color: #181818;
+}
+
+.recent-payslips {
+  list-style: disc inside;
+  color: #ffe066;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 12px;
+  padding-left: 18px;
+}
+
+.recent-payslips li {
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(250, 204, 21, 0.2);
+}

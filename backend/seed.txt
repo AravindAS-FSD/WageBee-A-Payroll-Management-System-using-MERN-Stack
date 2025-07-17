@@ -1,0 +1,78 @@
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+
+// import Employee from './models/Employee.js';
+// import Manager from './models/Manager.js';
+// import Feedback from './models/Feedback.js';
+// import Payslip from './models/Payslip.js';
+import Notification from './models/Notification.js';
+// import Report from './models/Report.js';
+
+dotenv.config();
+
+async function createMinimalDocs() {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log('✅ Connected to MongoDB');
+
+    // const employee = await Employee.create({
+    //   username: 'derrikashton',
+    //   email: 'derrikashton@wagebee.com',
+    //   password: 'derrik',
+    //   fullName: 'Derrik Ashton',
+    //   department: 'Sales',
+    //   designation: 'Intern',
+    //   basicSalary: 10000,
+    //   salary: 10000,
+    //   role: 'employee'
+    // });
+
+    // const manager = await Manager.create({
+    //   username: 'manager_ciarra',
+    //   email: 'ciarra@wagebee.com',
+    //   password: 'ciarra123',
+    //   fullName: 'Ciarra',
+    //   role: 'Manager',
+    //   accessLevel: 'HR'
+    // });
+
+    // await Feedback.create({
+    //   from: employee._id,
+    //   message: 'Initial test feedback',
+    //   response: 'Initial response',
+    //   respondedBy: manager._id
+    // });
+
+    // await Payslip.create({
+    //   employee: employee._id,
+    //   month: 'June',
+    //   year: 2025,
+    //   basicSalary: 10000,
+    //   allowances: 1000,
+    //   deductions: 500,
+    //   netSalary: 10500
+    // });
+
+    // await Report.create({
+    //   generatedBy: manager._id,
+    //   period: '2025-06',
+    //   type: 'Monthly',
+    //   data: { test: true },
+    //   fileUrl: '/dummy/report.pdf'
+    // });
+
+    await Notification.create({
+       user: admin_anita,
+       userModel: 'Manager',
+       message: 'Welcome to WageBee as a manager!'
+    });
+
+    console.log('✅ Minimal records inserted. Now collections will be visible.');
+    process.exit(0);
+  } catch (err) {
+    console.error('❌ Error creating docs:', err.message);
+    process.exit(1);
+  }
+}
+
+createMinimalDocs();

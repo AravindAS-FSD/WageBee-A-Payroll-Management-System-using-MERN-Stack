@@ -1,0 +1,54 @@
+.payslip-history-container {
+  background-color: #121212;
+  color: #ffe066;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 40px auto;
+  box-shadow: 0 6px 20px rgba(250, 204, 21, 0.15);
+  border: 2px solid #ffe066;
+}
+
+.history-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffe066;
+  margin-bottom: 24px;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.payslip-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #181818;
+  color: #ffe066;
+  font-size: 1rem;
+}
+
+.payslip-table th,
+.payslip-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+.payslip-table th {
+  background-color: #222;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.payslip-table tr:hover {
+  background-color: #282828;
+}
+
+.no-payslips-msg {
+  color: #999;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 20px;
+}
