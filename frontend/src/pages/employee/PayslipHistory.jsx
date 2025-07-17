@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import API from '../../api/axios';
-import './PayslipHistory.css'; // Make sure this path is correct
+import './PayslipHistory.css'; 
 
 const PayslipHistory = () => {
   const { user } = useContext(AuthContext);
@@ -17,7 +17,7 @@ const PayslipHistory = () => {
           return;
         }
 
-        const response = await API.get(`/payslips?employeeId=${user.id}`);
+        const response = await API.get(`/payslips/all?employeeId=${user.id}`);
         const sorted = response.data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
