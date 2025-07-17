@@ -20,7 +20,7 @@ const ManagerDashboard = () => {
         const empRes = await API.get('/employees');
         const employees = empRes.data;
         
-        const payRes = await API.get('/payslips');
+        const payRes = await API.get('/payslips/all');
         const payslips = payRes.data;
 
         const totalPayroll = payslips.reduce((sum, p) => sum + p.netSalary, 0);
