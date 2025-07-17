@@ -1,7 +1,7 @@
-const Payslip = require('../models/Payslip');
-const Employee = require('../models/Employee');
+import Payslip from '../models/Payslip.js';
+import Employee from '../models/Employee.js';
 
-exports.generatePayslip = async (req, res) => {
+export const generatePayslip = async (req, res) => {
   try {
     const {
       employeeId,
@@ -32,7 +32,7 @@ exports.generatePayslip = async (req, res) => {
   }
 };
 
-exports.getMyPayslips = async (req, res) => {
+export const getMyPayslips = async (req, res) => {
   try {
     const employeeId = req.user.userId;
 
@@ -46,7 +46,7 @@ exports.getMyPayslips = async (req, res) => {
   }
 };
 
-exports.getAllPayslips = async (req, res) => {
+export const getAllPayslips = async (req, res) => {
   try {
     const slips = await Payslip.find()
       .populate('employee', 'fullName username email')
