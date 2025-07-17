@@ -8,7 +8,7 @@ const PayslipHistory = () => {
   useEffect(() => {
     const fetchPayslips = async () => {
       try {
-        const res = await API.get('/payslips');
+        const res = await API.get('/payslips/all');
         setPayslips(res.data || []);
       } catch (error) {
         console.error('Failed to fetch payslips:', error);
