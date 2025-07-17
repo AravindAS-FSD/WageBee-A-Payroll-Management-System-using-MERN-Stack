@@ -18,7 +18,7 @@ const EmployeeDashboard = () => {
         const empRes = await API.get(`/employees/${user.id}`);
         setEmployeeData(empRes.data);
 
-        const payslipRes = await API.get(`/payslips?employeeId=${user.id}`);
+        const payslipRes = await API.get(`/payslips/all?employeeId=${user.id}`);
         const sorted = payslipRes.data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
