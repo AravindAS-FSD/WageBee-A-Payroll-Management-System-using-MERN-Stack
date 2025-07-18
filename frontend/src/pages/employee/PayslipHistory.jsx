@@ -17,7 +17,7 @@ const PayslipHistory = () => {
           return;
         }
 
-        const response = await API.get(`/payslips/all?employeeId=${user.id}`);
+        const response = await API.get(`/payslips/my?employeeId=${user.id}`);
         const sorted = response.data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
@@ -48,8 +48,10 @@ const PayslipHistory = () => {
                 <p>Net Salary: ₹{p.netSalary?.toLocaleString()}</p>
               </div>
               <a
-                href={`/api/payslips/${p._id}/download`}
+                href={`http://localhost:5000/api/payslips/${p._id}/download`}
                 className="download-btn"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Download
               </a>
