@@ -25,16 +25,16 @@ const GeneratePayslip = () => {
   const [filteredEmployees, setFilteredEmployees] = useState([]);
 
   useEffect(() => {
-    async function fetchEmployees() {
+    const fetchEmployees = async () => {
       try {
         const res = await API.get('/employees');
-        let arr = Array.isArray(res?.data) ? res.data : (res?.data?.employees || []);
+        const arr = Array.isArray(res?.data) ? res.data : (res?.data?.employees || []);
         setEmployeeList(arr);
         setFilteredEmployees(arr);
       } catch (err) {
         console.error('Error fetching employees:', err);
       }
-    }
+    };
     fetchEmployees();
   }, []);
 
@@ -53,19 +53,14 @@ const GeneratePayslip = () => {
     let updatedForm = { ...form, [name]: value };
 
     if (name === 'year') {
-      const currentDate = new Date();
-      const currentYear = currentDate.getFullYear();
-      const currentMonthIndex = currentDate.getMonth(); // 0-based index
+      const currentYear = new Date().getFullYear();
+      const currentMonthIndex = new Date().getMonth();
 
-      let allowedMonths = [];
-
-      if (Number(value) === currentYear) {
-        allowedMonths = defaultMonths.slice(0, currentMonthIndex + 1); // Show up to current month
-      } else if (Number(value) < currentYear) {
-        allowedMonths = [...defaultMonths]; // All months
-      } else {
-        allowedMonths = []; // Future year, no months
-      }
+      let allowedMonths = Number(value) === currentYear
+        ? defaultMonths.slice(0, currentMonthIndex + 1)
+        : Number(value) < currentYear
+        ? [...defaultMonths]
+        : [];
 
       setFilteredMonths(allowedMonths);
 
@@ -78,12 +73,9 @@ const GeneratePayslip = () => {
       try {
         const res = await API.get(`/employees/${value}`);
         const emp = res.data;
-        updatedForm = {
-          ...updatedForm,
-          basicSalary: emp?.basicSalary || 0,
-          allowances: 0,
-          deductions: 0,
-        };
+        updatedForm.basicSalary = emp?.basicSalary || 0;
+        updatedForm.allowances = 0;
+        updatedForm.deductions = 0;
         updatedForm.netSalary = recalculateNetSalary(updatedForm.basicSalary, 0, 0);
       } catch (err) {
         console.error('Error fetching employee info:', err);
@@ -100,35 +92,19 @@ const GeneratePayslip = () => {
 
     setForm(updatedForm);
 
-    if (["month", "year"].includes(name)) {
-      if (updatedForm.month && updatedForm.year) {
-        try {
-          const payslipsRes = await API.get(`/payslips?month=${updatedForm.month}&year=${updatedForm.year}`);
-          const payslips = Array.isArray(payslipsRes.data) ? payslipsRes.data : [];
-          const paidEmployeeIds = payslips.map(p => p.employee);
-          setFilteredEmployees(employeeList.filter(emp => !paidEmployeeIds.includes(emp._id)));
-        } catch (err) {
-          setFilteredEmployees(employeeList);
-        }
-      } else {
-        setFilteredEmployees(employeeList);
-      }
-    }
-
-    if (["employee", "month", "year"].includes(name) &&
-        updatedForm.employee && updatedForm.month && updatedForm.year) {
+    if (updatedForm.employee && updatedForm.month && updatedForm.year) {
       try {
-        const res = await API.get(`/payslips?employeeId=${updatedForm.employee}&month=${updatedForm.month}&year=${updatedForm.year}`);
+        const res = await API.get(`/payslips/check?employeeId=${updatedForm.employee}&month=${updatedForm.month}&year=${updatedForm.year}`);
         if (res.data && res.data._id) {
           setExistingPayslip(res.data);
           setForm({
             ...updatedForm,
-            basicSalary: res.data.basicSalary || '',
-            allowances: res.data.allowances || '',
-            deductions: res.data.deductions || '',
-            netSalary: res.data.netSalary || ''
+            basicSalary: res.data.basicSalary,
+            allowances: res.data.allowances,
+            deductions: res.data.deductions,
+            netSalary: res.data.netSalary
           });
-          setStatus(`Payslip already generated for ${updatedForm.month} ${updatedForm.year}. You can edit and update.`);
+          setStatus(`Payslip already exists for ${updatedForm.month} ${updatedForm.year}. You can update it.`);
         } else {
           setExistingPayslip(null);
           setStatus('');
@@ -147,7 +123,8 @@ const GeneratePayslip = () => {
     e.preventDefault();
     try {
       const payload = {
-        ...form,
+        employeeId: form.employee,
+        month: form.month,
         year: Number(form.year),
         basicSalary: Number(form.basicSalary),
         allowances: Number(form.allowances),
@@ -155,17 +132,17 @@ const GeneratePayslip = () => {
         netSalary: Number(form.netSalary),
       };
 
-      if (existingPayslip && existingPayslip._id) {
-        await API.put(`/payslips/${existingPayslip._id}`, payload);
-        setStatus(`Payslip updated for ${form.month} ${form.year}`);
+      if (existingPayslip?._id) {
+        await API.put(`/payslips/update/${existingPayslip._id}`, payload);
+        setStatus(`✅ Payslip updated for ${form.month} ${form.year}`);
       } else {
-        await API.post('/payslips', payload);
-        setStatus(`Payslip generated for ${form.month} ${form.year}`);
+        await API.post('/payslips/generate', payload);
+        setStatus(`✅ Payslip generated for ${form.month} ${form.year}`);
       }
 
       if (form.employee && payload.netSalary) {
         await API.put(`/employees/${form.employee}`, {
-          salary: payload.netSalary, // updates 'salary' field in Employee model
+          salary: payload.netSalary,
         });
       }
 
@@ -190,7 +167,7 @@ const GeneratePayslip = () => {
       <h2>Generate Payslip</h2>
       <form onSubmit={handleSubmit} className="generate-payslip-form">
         <label>
-          Employee ID
+          Employee
           <select name="employee" value={form.employee} onChange={handleChange} required>
             <option value="">Select Employee</option>
             {filteredEmployees.map(emp => (
@@ -244,11 +221,12 @@ const GeneratePayslip = () => {
           <input type="number" name="netSalary" value={form.netSalary} readOnly />
         </label>
 
-        <button type="submit">Generate</button>
+        <button type="submit">{existingPayslip ? 'Update Payslip' : 'Generate Payslip'}</button>
       </form>
 
       {status && <p className="generate-payslip-status">{status}</p>}
     </div>
   );
 };
+
 export default GeneratePayslip;
