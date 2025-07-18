@@ -44,8 +44,8 @@ WageBee/
 │   ├── models/
 │   ├── routes/
 │   ├── middleware/
-│   └── server.js
-├── .env
+│   |── server.js
+|   └── .env
 ├── package.json
 └── README.md
 ````
@@ -57,8 +57,8 @@ WageBee/
 ### ✅ Prerequisites
 
 - Node.js v16+
-- MongoDB (Local or Atlas)
-- npm or yarn
+- MongoDB (Atlas)
+- npm
 
 ---
 
@@ -89,7 +89,7 @@ JWT_SECRET=<Your Secret Key>
 Run the server:
 
 ```bash
-npm run dev
+npm start
 ```
 
 ---
@@ -134,6 +134,7 @@ JWT_SECRET=<A secure JWT secret>
 
 * [ ] Add unit & integration tests
 * [ ] Email notifications for payslips
+* [ ] Dynamic Report Generation
 * [ ] Export payroll data as CSV/PDF
 * [ ] Cloud deployment (Render / Railway / Vercel)
 
