@@ -52,3 +52,22 @@
   font-size: 1rem;
   margin-top: 20px;
 }
+
+.delete-button {
+  background-color: transparent;
+  color: #ffe066;
+  border: 1px solid #ffe066;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.delete-button:hover {
+  background-color: #ffe066;
+  color: #121212;
+  opacity: 1;
+  box-shadow: 0 0 8px #ffe066;
+}
