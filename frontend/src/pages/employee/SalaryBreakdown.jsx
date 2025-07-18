@@ -17,7 +17,7 @@ const SalaryBreakdown = () => {
           return;
         }
 
-        const response = await API.get(`/payslips?employeeId=${user.id}`);
+        const response = await API.get(`/payslips/my?employeeId=${user.id}`);
         const sorted = response.data.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
