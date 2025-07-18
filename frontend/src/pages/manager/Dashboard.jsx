@@ -64,7 +64,6 @@ const ManagerDashboard = () => {
       <div className="cards-container">
         <StatCard title="Total Employees" value={counts.employees} color="#dbeafe" />
         <StatCard title="Total Payroll Disbursed" value={`₹${counts.totalPayroll}`} color="#dcfce7" />
-        <StatCard title="Pending Payrolls" value={counts.pendingPayrolls} color="#fef9c3" />
       </div>
       
       <div className="section-box">
