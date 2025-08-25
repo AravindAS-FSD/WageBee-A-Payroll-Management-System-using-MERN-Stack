@@ -9,7 +9,7 @@ import {
   updatePayslip,
   checkExistingPayslip,
   getPendingPayrollsForCurrentMonth,
-  deletePayslip,
+  deletePayslip
 } from '../controllers/payslipController.js';
 import { protect, restrictTo } from '../middleware/authMiddleware.js';
 
