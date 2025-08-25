@@ -1,6 +1,6 @@
 import express from 'express';
 import PDFDocument from 'pdfkit';
-import Payslip from '../models/Payslip';
+import Payslip from '../models/Payslip.js';
 import {
   generatePayslip,
   getMyPayslips,
