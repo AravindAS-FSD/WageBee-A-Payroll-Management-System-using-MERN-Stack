@@ -1,0 +1,60 @@
+.payslip-history-container {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: white;
+}
+
+.payslip-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #facc15; 
+}
+
+.payslip-loading,
+.payslip-empty {
+  color: #9ca3af; 
+}
+
+.payslip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.payslip-card {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000; 
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #facc15; 
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.payslip-info h4 {
+  font-weight: 600;
+  color: #fde68a; 
+  text-transform: capitalize;
+}
+
+.payslip-info p {
+  color: #fde68a; 
+}
+
+.download-btn {
+  background-color: #facc15;
+  color: black;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #fcd34d; 
+}
