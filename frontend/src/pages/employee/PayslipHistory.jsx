@@ -48,7 +48,7 @@ const PayslipHistory = () => {
                 <p>Net Salary: ₹{p.netSalary?.toLocaleString()}</p>
               </div>
               <a
-                href={`http://localhost:5000/api/payslips/${p._id}/download`}
+                href={`https://wagebee-a-payroll-management-system.onrender.com/api/payslips/${p._id}/download`}
                 className="download-btn"
                 target="_blank"
                 rel="noopener noreferrer"

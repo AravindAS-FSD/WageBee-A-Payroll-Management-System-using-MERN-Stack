@@ -1,11 +1,11 @@
 // src/pages/Login.jsx
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import React, { useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { loginWithApi } = useAuth();
   const navigate = useNavigate();
 
   const [identifier, setIdentifier] = useState('');
@@ -22,20 +22,7 @@ const Login = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifier, password }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.message || 'Login failed');
-        return;
-      }
-
-      login(data.token, data.user);
-
+      const data = await loginWithApi({ identifier, password });
       const role = data.user.role.toLowerCase();
       if (role === 'manager') {
         navigate('/manager/dashboard', { replace: true });
@@ -43,8 +30,7 @@ const Login = () => {
         navigate('/employee/dashboard', { replace: true });
       }
     } catch (err) {
-      console.error('Login error:', err);
-      setError('Server error');
+      setError(err.message || 'Login failed');
     }
   };
 
@@ -72,7 +58,7 @@ const Login = () => {
           <button type="submit">Login</button>
         </form>
 
-        <button className="back-btn" onClick={() => navigate('/')}>
+        <button className="back-btn" onClick={() => navigate('/')}> 
           ← Back to Home
         </button>
       </div>

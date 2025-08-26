@@ -1,7 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const { loginUser } = require('../controllers/authController');
+import API from './axios';
 
-router.post('/login', loginUser);
-
-module.exports = router;
+export const login = async (credentials) => {
+	try {
+		const response = await API.post('/login', credentials);
+		return response.data;
+	} catch (error) {
+		throw error.response ? error.response.data : error;
+	}
+};

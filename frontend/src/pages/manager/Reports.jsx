@@ -89,7 +89,7 @@ const Reports = () => {
                   <td>{new Date(r.createdAt).toLocaleDateString()}</td>
                   <td>
                     <a
-                      href={`/api/reports/${r._id}/download`}
+                      href={`https://wagebee-a-payroll-management-system.onrender.com/api/reports/${r._id}/download`}
                       className="report-download-link"
                       target="_blank"
                       rel="noopener noreferrer"
