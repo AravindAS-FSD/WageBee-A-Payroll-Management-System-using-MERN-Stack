@@ -25,8 +25,11 @@ jobs:
       with:
         node-version: '20'
 
-    - name: Install Backend Dependencies
-      run: npm install
+    # THE SECURITY GATE: Installs dependencies, then immediately runs the Jest tests
+    - name: Install Backend Dependencies and Run Tests
+      run: |
+        npm install
+        npm test
 
   build-frontend:
     name: Build and Verify React Frontend
