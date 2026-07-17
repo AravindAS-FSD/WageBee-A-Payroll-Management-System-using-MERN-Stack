@@ -25,13 +25,13 @@ jobs:
       with:
         node-version: '20'
 
-    # THE SECURITY GATE: Installs dependencies, then immediately runs the Jest tests
+    # THE SECURITY GATE: Nuke old modules and build fresh Linux ones
     - name: Install Backend Dependencies and Run Tests
       run: |
+        rm -rf node_modules
         npm install
-        npm install --no-save jest supertest
         npx jest
-        
+
   build-frontend:
     name: Build and Verify React Frontend
     runs-on: ubuntu-latest
