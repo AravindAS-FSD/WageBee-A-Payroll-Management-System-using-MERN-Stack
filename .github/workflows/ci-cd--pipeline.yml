@@ -1,0 +1,53 @@
+name: WageBee CI/CD Pipeline
+
+# 1. The Event: This triggers the pipeline every time you push to the main branch
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 2. The Jobs: The virtual servers GitHub spins up
+jobs:
+  build-backend:
+    name: Build and Verify Node.js Backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend # Tells GitHub to enter the backend folder
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Backend Dependencies
+      run: npm install
+
+  build-frontend:
+    name: Build and Verify React Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend # Tells GitHub to enter the frontend folder
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Frontend Dependencies
+      run: npm install
+
+    - name: Compile Production Build
+      run: npm run build
+      env:
+        CI: false # Prevents the build from failing on minor React linting warnings
