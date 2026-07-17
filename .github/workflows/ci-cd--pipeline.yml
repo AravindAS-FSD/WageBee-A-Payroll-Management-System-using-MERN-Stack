@@ -29,7 +29,8 @@ jobs:
     - name: Install Backend Dependencies and Run Tests
       run: |
         npm install
-        npm test
+        npm install --no-save jest supertest
+        npx jest
 
   build-frontend:
     name: Build and Verify React Frontend
