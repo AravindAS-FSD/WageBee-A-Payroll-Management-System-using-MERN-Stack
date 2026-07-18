@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://wagebee-a-payroll-management-system.onrender.com/api',
+  baseURL: 'https://wagebee-backend.onrender.com',
   //withCredentials: true, 
 });
 
