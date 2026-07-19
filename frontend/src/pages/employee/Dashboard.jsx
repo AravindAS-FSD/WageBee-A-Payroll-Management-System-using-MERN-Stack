@@ -7,7 +7,7 @@ const EmployeeDashboard = () => {
   const { user } = useContext(AuthContext);
   const [employeeData, setEmployeeData] = useState({});
   const [payslips, setPayslips] = useState([]);
-  const [latestPayslip, setLatestPayslip] = useState(null);
+  // const [latestPayslip, setLatestPayslip] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
