@@ -20,7 +20,7 @@ const GeneratePayslip = () => {
 
   const [filteredMonths, setFilteredMonths] = useState(defaultMonths);
   const [status, setStatus] = useState('');
-  const [employeeList, setEmployeeList] = useState([]);
+  // const [employeeList, setEmployeeList] = useState([]);
   const [existingPayslip, setExistingPayslip] = useState(null);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
 
