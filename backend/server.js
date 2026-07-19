@@ -12,7 +12,9 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://wagebee.netlify.app'
+  'http://localhost:5173',
+  'https://wagebee.netlify.app',
+  'https://vercel.app'
 ];
 
 app.use(cors({
