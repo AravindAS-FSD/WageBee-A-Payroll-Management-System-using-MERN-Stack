@@ -3,11 +3,19 @@ import { AuthContext } from '../../context/AuthContext';
 import API from '../../api/axios';
 import './Dashboard.css';
 
+// Extracted Sub-component for clarity and re-usability
+const StatCard = ({ title, value }) => (
+  <div className="stat-card">
+    <h4>{title}</h4>
+    <p>{value}</p>
+  </div>
+);
+
 const EmployeeDashboard = () => {
   const { user } = useContext(AuthContext);
   const [employeeData, setEmployeeData] = useState({});
   const [payslips, setPayslips] = useState([]);
-  const [latestPayslip, setLatestPayslip] = useState(null); // Fixed: Uncommented this line
+  const [latestPayslip, setLatestPayslip] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,12 +27,12 @@ const EmployeeDashboard = () => {
         setEmployeeData(empRes.data);
 
         const payslipRes = await API.get(`/payslips/my?employeeId=${user.id}`);
-        const sorted = payslipRes.data.sort(
+        const sorted = (payslipRes.data || []).sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
 
         setPayslips(sorted);
-        setLatestPayslip(sorted[0]);
+        setLatestPayslip(sorted[0] || null);
       } catch (err) {
         console.error('❌ Error fetching dashboard data:', err);
       } finally {
@@ -51,6 +59,13 @@ const EmployeeDashboard = () => {
         </div>
       </div>
 
+      {latestPayslip && (
+        <div className="section-box latest-slip-container">
+          <h3 className="section-title">📅 Most Recent Payslip</h3>
+          <p>{latestPayslip.month} {latestPayslip.year} — ₹{latestPayslip.netSalary?.toLocaleString()}</p>
+        </div>
+      )}
+
       <div className="section-box">
         <h3 className="section-title">🧾 Payslip History</h3>
         {loading ? (
@@ -59,23 +74,16 @@ const EmployeeDashboard = () => {
           <ul className="recent-payslips">
             {payslips.map((p) => (
               <li key={p._id}>
-                {p.month} {p.year} – ₹{p.netSalary.toLocaleString()}
+                {p.month} {p.year} – ₹{p.netSalary?.toLocaleString()}
               </li>
             ))}
           </ul>
         ) : (
-          <p>No payslips found.</p>
+          <p className="text-gray-400">No records found.</p>
         )}
       </div>
     </div>
   );
 };
-
-const StatCard = ({ title, value }) => (
-  <div className="small-stat-card">
-    <p className="stat-title">{title}</p>
-    <p className="stat-value">{value}</p>
-  </div>
-);
 
 export default EmployeeDashboard;
