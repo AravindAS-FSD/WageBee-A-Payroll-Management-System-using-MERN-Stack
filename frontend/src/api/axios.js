@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://wagebee-backend.onrender.com',
-  //withCredentials: true, 
+  // Append /api to the end of your backend URL
+  baseURL: 'https://onrender.com', 
 });
 
 API.interceptors.request.use((config) => {
