@@ -14,7 +14,7 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
   'https://wagebee.netlify.app',
-  'https://wage-bee-a-payroll-management-syste-theta.vercel.app/'
+  'https://wage-bee-a-payroll-management-syste.vercel.app/'
 ];
 
 app.use(cors({
