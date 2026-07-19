@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API = axios.create({
   // Append /api to the end of your backend URL
-  baseURL: process.env.REACT_APP_API_URL || 'https://wagebee-backend.onrender.com', 
+  baseURL: process.env.REACT_APP_API_URL || 'https://wagebee-backend.onrender.com//i', 
 });
 
 API.interceptors.request.use((config) => {
