@@ -10,16 +10,19 @@ import payslipRoutes from './routes/payslipRoutes.js';
 dotenv.config();
 const app = express();
 
+// Removed the trailing slash from the Vercel production URL
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
   'https://wagebee.netlify.app',
-  'https://wage-bee-a-payroll-management-syste.vercel.app/'
+  'https://wage-bee-a-payroll-management-syste.vercel.app'
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, or Postman)
     if (!origin) return callback(null, true);
+    
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     } else {
@@ -31,10 +34,13 @@ app.use(cors({
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
 }));
 
+// Handle preflight requests globally
 app.options('*', cors());
 
+// Middleware to parse JSON payloads
 app.use(express.json());
 
+// API Routes
 app.use('/api', authRoutes);
 app.use('/api/employees', employeeRoutes);
 app.use('/api/payslips', payslipRoutes);
@@ -42,8 +48,12 @@ app.use('/api/reports', reportRoutes);
 
 const PORT = process.env.PORT || 5000;
 
+// Connect to database before starting the server
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
   });
+}).catch((err) => {
+  console.error('❌ Database connection failed:', err);
+  process.exit(1);
 });
